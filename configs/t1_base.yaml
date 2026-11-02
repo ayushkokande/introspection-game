@@ -1,0 +1,42 @@
+# T1 synthetic key-value world: default settings from the proposal.
+run_name: t1_base
+out_dir: runs
+seed: 0
+
+world:
+  n_x: 500
+  n_y: 500
+  zipf_alpha: 1.0      # sweep: 0.0 (uniform) .. 1.5
+  label_noise: 0.1     # sweep: 0.0 .. 0.3
+  pairs_per_seq: 32
+  seed: 0
+  eval_frac: 0.5       # keys held out from the game for evaluation
+
+student:
+  d_model: 16          # main capacity knob: at 64, all 500 keys are memorised perfectly
+  n_heads: 2
+  d_mlp: 32
+  conf_hidden: 64
+  conf_input: logits       # logits | resid | both (see model.py)
+  freeze_embeddings: true  # learned embeddings act as a per-key lookup table
+
+memorizer:
+  steps: 1500
+  batch_size: 128
+  lr: 3.0e-3
+  log_every: 250
+
+game:
+  steps: 2000
+  batch_size: 64
+  lr_conf: 1.0e-3
+  weight_decay_conf: 0.0
+  lr_proposer: 5.0e-3
+  entropy_coef: 0.05
+  uniform_mix: 0.5     # fraction of questions drawn uniformly; stops proposer collapse
+  scoring_rule: brier  # brier | log
+  adversary: binned    # binned | logistic
+  refit_every: 100
+  refit_window: 4096
+  train_proposer: true
+  eval_every: 250

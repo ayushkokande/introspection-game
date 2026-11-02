@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# experiment outputs
+runs/
+outputs/
+checkpoints/
+wandb/
+*.pt
+*.safetensors
+
+.DS_Store
+.env

@@ -1,0 +1,31 @@
+# Tiny config for checking the pipeline end to end on a laptop CPU (well under a minute).
+run_name: t1_smoke
+out_dir: runs
+seed: 0
+
+world:
+  n_x: 200
+  n_y: 200
+  zipf_alpha: 1.0
+  label_noise: 0.1
+  pairs_per_seq: 16
+  eval_frac: 0.5
+
+student:
+  d_model: 16
+  n_heads: 2
+  d_mlp: 32
+  conf_hidden: 32
+  conf_input: logits
+
+memorizer:
+  steps: 400
+  batch_size: 64
+  lr: 3.0e-3
+  log_every: 100
+
+game:
+  steps: 300
+  batch_size: 64
+  refit_every: 50
+  eval_every: 100
